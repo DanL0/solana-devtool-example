@@ -1,4 +1,5 @@
 import './common/wire'
+import './evm/sendOFT'
 import './solana/createOFT'
 import './solana/createOFTAdapter'
 import './solana/mintTo'

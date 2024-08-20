@@ -1,0 +1,17 @@
+{
+  "timestamp": "2024-08-20T07:14:09.485Z",
+  "accounts": [
+    {
+      "name": "SPL Token Mint Account",
+      "publicKey": "9a2CfDxhbpzdiwERyFNtiZS3nptkaT6rrPP3p8G3AiWp"
+    },
+    {
+      "name": "OFT Config Account",
+      "publicKey": "GUdzgbEPYsDtEADZmWyUo9JCtJ8uLhgXbg7R3Hay1GTS"
+    },
+    {
+      "name": "OFT Program ID",
+      "publicKey": "Ezj7wPkAvyzNVT3YZN9L1ScrLDedD2TUBqpkNKFbpyf"
+    }
+  ]
+}

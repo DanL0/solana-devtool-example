@@ -83,13 +83,15 @@ solana-keygen new -o target/deploy/oft-keypair.json
 anchor keys sync
 ```
 
+:warning: You will want to use the `--force` flag to generate your own keypair if these keys already exist.
+
 ### Deploying OFT Program
 
 #### Using `anchor`
 
 ```bash
 anchor build -v
-solana program deploy --program-id target/deploy/oft-keypair.json target/verifiable/oft.so -u mainnet-beta
+solana program deploy --program-id target/deploy/oft-keypair.json target/verifiable/oft.so -u devnet
 ```
 
 #### Using `solana-verify`
