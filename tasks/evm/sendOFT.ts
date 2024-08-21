@@ -1,29 +1,14 @@
 import { task } from 'hardhat/config'
 import { SendParam } from "../common/types";
-import { Options } from '@layerzerolabs/lz-v2-utilities';
+import { addressToBytes32, Options } from '@layerzerolabs/lz-v2-utilities';
 import { types } from '@layerzerolabs/devtools-evm-hardhat'
-import bs58 from 'bs58';
 
-// send tokens from a contract on one network to another
 task('lz:oft:send-to-solana', 'Sends tokens from either OFT or OFTAdapter')
     .addParam('to', 'solana receiver address, eg. Fty7h4FYAN7z8yjqaJExMHXbUoJYMcRjWYmggSxLbHp8')
     .addParam('toEid', 'The destination endpoint ID', undefined, types.eid)
     .addParam('amount', 'amount to transfer in token decimals, eg. 1 is 1 ether')
     .setAction(async (taskArgs, { ethers, deployments }) => {
         const eidB = taskArgs.toEid;
-
-        // address conversion
-        // Decode the Base58 address to a Uint8Array
-        const decodedBytes = bs58.decode(taskArgs.to);
-
-        // Convert the Uint8Array to a hex string
-        // Each byte is converted to a 2-character hexadecimal value, and joined together
-        const hexString = Array.from(decodedBytes)
-            .map(byte => byte.toString(16).padStart(2, '0'))
-            .join('');
-
-        // Ensure the hex string is 32 bytes long (64 characters)
-        const toAddressHexString = '0x' + hexString;
 
         // Get the contract factories
         const oftDeployment = await deployments.get('MyOFT');
@@ -42,7 +27,7 @@ task('lz:oft:send-to-solana', 'Sends tokens from either OFT or OFTAdapter')
 
         const sendParam: SendParam = {
             dstEid: eidB,
-            to: toAddressHexString,
+            to: addressToBytes32(taskArgs.to),
             amountLD: amount!,
             minAmountLD: amount!,
             extraOptions: options,
@@ -65,5 +50,3 @@ task('lz:oft:send-to-solana', 'Sends tokens from either OFT or OFTAdapter')
         );
         console.log(`Send tx initiated. See: https://layerzeroscan.com/tx/${r.hash}`)
     })
-
-export default 'sendOFT'
